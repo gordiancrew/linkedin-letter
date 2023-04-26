@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './input-bar.css';
 function InputBar() {
   const [currentValue, setCurrentValue] = useState('');
-  const [answerField, setAnswerField] = useState('input http linkedin');
+  const [answerField, setAnswerField] = useState('input url profile linkedin');
   function buttonHundler() {
     requestApi();
   }
@@ -25,11 +25,24 @@ function InputBar() {
     return pattern.test(str);
   }
 
-  function requestApi() {
+  async function requestApi() {
     if (isValidHttpUrl(currentValue)) {
-      alert('request');
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ profileURL: currentValue }),
+      };
+      setAnswerField('Loading...');
+      await fetch('http://nameserver.com/endpoint', requestOptions)
+        .then((response) => response.json())
+        .then((res: { textLetter: string }) => setAnswerField(res.textLetter))
+        .catch((error) => console.log('POST!! error', error));
+
+      setAnswerField(
+        `In this area we write text letter, programm sent post request in URL: http://nameserver.com/endpoint whith body where argument  profileURL:(our input value: ${currentValue}), we wait response body with generated letter or error`
+      );
     } else {
-      setAnswerField('no valid url');
+      setAnswerField('no valid  linkedin profileurl');
     }
   }
   return (
@@ -38,7 +51,7 @@ function InputBar() {
         <form>
           <input
             type="text"
-            placeholder="input"
+            placeholder="input profile linkedin"
             onChange={(e) => setCurrentValue(e.target.value)}
             onKeyDown={(e) => handleKeyDown(e)}
           />
@@ -47,7 +60,9 @@ function InputBar() {
           </button>
         </form>
       </div>
-      <div className="answerField">{answerField}</div>
+      <div className="answerField">
+        <p>{answerField}</p>
+      </div>
     </div>
   );
 }

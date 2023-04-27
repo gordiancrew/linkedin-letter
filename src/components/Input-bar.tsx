@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './input-bar.css';
 function InputBar() {
+  const [radioValue, setRadioValue] = useState('company-linkedin');
   const [currentValue, setCurrentValue] = useState('');
-  const [answerField, setAnswerField] = useState('input url profile linkedin');
+  const [companyValue, setCompanyValue] = useState('');
+  const [answerField, setAnswerField] = useState('input desident and your company');
   function buttonHundler() {
     requestApi();
   }
@@ -11,6 +13,9 @@ function InputBar() {
       requestApi();
       e.preventDefault();
     }
+  }
+  function chengeValue(val: string) {
+    setRadioValue(val);
   }
   function isValidHttpUrl(str: string) {
     const pattern = new RegExp(
@@ -38,23 +43,60 @@ function InputBar() {
         .then((res: { textLetter: string }) => setAnswerField(res.textLetter))
         .catch((error) => console.log('POST!! error', error));
 
-      setAnswerField(
-        `In this area we write text letter, programm sent post request in URL: http://nameserver.com/endpoint whith body where argument  profileURL:(our input value: ${currentValue}), we wait response body with generated letter or error`
-      );
+      setAnswerField(`we post********  DESTINATION_URL:${currentValue} ********
+       COMPANY_INFO: ${companyValue}******** TYPE_COMPANY: ${radioValue}`);
     } else {
-      setAnswerField('no valid  linkedin profileurl');
+      setAnswerField('no valid destination  linkedin profile url');
     }
   }
   return (
     <div className="field">
       <div className="search">
-        <form>
+        <form className="form-field">
+          <fieldset className="radio-fieldset">
+            <div className="radio-field-wrapper">
+              <div className="radio-field">
+                <label>
+                  <input
+                    type="radio"
+                    name="radio"
+                    checked={radioValue === 'company-linkedin' ? true : false}
+                    onChange={() => chengeValue('company-linkedin')}
+                  />
+                  letter from profile linkedin
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="radio"
+                    checked={radioValue === 'company-name' ? true : false}
+                    onChange={() => chengeValue('company-name')}
+                  />
+                  letter from company
+                </label>
+              </div>
+            </div>
+          </fieldset>
+
           <input
+            className="search-input"
             type="text"
-            placeholder="input profile linkedin"
+            placeholder={
+              radioValue === 'company-linkedin'
+                ? 'input company profile linkedin '
+                : 'input company name'
+            }
+            onChange={(e) => setCompanyValue(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e)}
+          />
+          <input
+            className="search-input"
+            type="text"
+            placeholder="input destination profile linkedin"
             onChange={(e) => setCurrentValue(e.target.value)}
             onKeyDown={(e) => handleKeyDown(e)}
           />
+
           <button onClick={buttonHundler} type="button">
             send
           </button>

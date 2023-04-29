@@ -14,6 +14,12 @@ function InputBar() {
       e.preventDefault();
     }
   }
+  function handleKeyDownTextarea(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (e.key === 'Enter') {
+      requestApi();
+      e.preventDefault();
+    }
+  }
   function chengeValue(val: string) {
     setRadioValue(val);
   }
@@ -72,22 +78,22 @@ function InputBar() {
                     checked={radioValue === 'company-name' ? true : false}
                     onChange={() => chengeValue('company-name')}
                   />
-                  letter from company
+                  letter from description company
                 </label>
               </div>
             </div>
           </fieldset>
 
-          <input
-            className="search-input"
-            type="text"
+          <textarea
+            className="search-area"
+            style={radioValue === 'company-name' ? { height: '300px' } : {}}
             placeholder={
               radioValue === 'company-linkedin'
                 ? 'input company profile linkedin '
-                : 'input company name'
+                : 'input description about company'
             }
             onChange={(e) => setCompanyValue(e.target.value)}
-            onKeyDown={(e) => handleKeyDown(e)}
+            onKeyDown={(e) => handleKeyDownTextarea(e)}
           />
           <input
             className="search-input"

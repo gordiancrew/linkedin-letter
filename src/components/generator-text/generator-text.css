@@ -1,0 +1,18 @@
+.generator-text-wrapper {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.generator-text {
+  width: 400px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+.start-stop-wrapper{
+display: flex;
+}

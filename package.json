@@ -13,8 +13,10 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.8",
     "react-router-dom": "^6.9.0",
-    "react-hook-form": "^7.43.8"
+    "react-speech-recognition": "^3.10.0",
+    "regenerator-runtime": "^0.13.11"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -22,6 +24,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "@types/react-speech-recognition": "^3.9.2",
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
     "@vitejs/plugin-react": "^3.1.0",

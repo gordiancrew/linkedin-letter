@@ -23,34 +23,31 @@ function InputBar() {
   function chengeValue(val: string) {
     setRadioValue(val);
   }
-  function isValidHttpUrl(str: string) {
-    const pattern = new RegExp(
-      '^(https?:\\/\\/)?' + // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-        '(\\#[-a-z\\d_]*)?$', // fragment locator
-      'i'
-    );
-    return pattern.test(str);
-  }
+  // function isValidHttpUrl(str: string) {
+  //   const pattern = new RegExp(
+  //     '^(https?:\\/\\/)?' + // protocol
+  //       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+  //       '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+  //       '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+  //       '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+  //       '(\\#[-a-z\\d_]*)?$', // fragment locator
+  //     'i'
+  //   );
+  //   return pattern.test(str);
+  // }
 
   async function requestApi() {
-    if (isValidHttpUrl(currentValue)) {
+    if (true) {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ profileURL: currentValue }),
+        body: JSON.stringify({ link: currentValue, company: companyValue }),
       };
       setAnswerField('Loading...');
-      await fetch('http://nameserver.com/endpoint', requestOptions)
+      await fetch('http://188.225.46.66/hello', requestOptions)
         .then((response) => response.json())
-        .then((res: { textLetter: string }) => setAnswerField(res.textLetter))
+        .then((res: { output_text: string }) => setAnswerField(res.output_text))
         .catch((error) => console.log('POST!! error', error));
-
-      setAnswerField(`we post********  DESTINATION_URL:${currentValue} ********
-       COMPANY_INFO: ${companyValue}******** TYPE_COMPANY: ${radioValue}`);
     } else {
       setAnswerField('no valid destination  linkedin profile url');
     }

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import './input-bar.css';
 function InputBar() {
@@ -38,19 +39,32 @@ function InputBar() {
 
   async function requestApi() {
     if (true) {
-      const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ link: currentValue, company: companyValue }),
-      };
       setAnswerField('Loading...');
-      await fetch('http://188.225.46.66/hello', requestOptions)
-        .then((response) => response.json())
-        .then((res: { output_text: string }) => setAnswerField(res.output_text))
-        .catch((error) => console.log('POST!! error', error));
+      axios
+        .post('http://188.225.46.66/hello', {
+          link: currentValue,
+          company: companyValue,
+          button: 0,
+        })
+        .then((response) => response.data)
+        .then((res) => setAnswerField(res.output_text));
+      // const requestOptions = {
+      //   method: 'POST',
+
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ link: currentValue, company: companyValue, button: 0 }),
+      // };
+      // setAnswerField('Loading...');
+      // await fetch('http://188.225.46.66/hello', requestOptions)
+      //   .then((response) => response.json())
+      //   .then((res: { output_text: string }) => setAnswerField(res.output_text))
+      //   .catch((error) => console.log('POST!! error', error));
     } else {
       setAnswerField('no valid destination  linkedin profile url');
     }
+    // https://www.linkedin.com/in/williamhgates/
   }
   return (
     <div className="field">

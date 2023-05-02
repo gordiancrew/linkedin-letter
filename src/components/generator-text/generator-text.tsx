@@ -19,7 +19,7 @@ function GeneratorText() {
 
   return (
     <div className="generator-text-wrapper">
-      <div className="generator-text">
+      {/* <div className="generator-text">
         <p>{transcript ? transcript : 'Start listening for transcript'}</p>
         <div className="start-stop-wrapper">
           <button onClick={startVoice}>Start listening</button>
@@ -29,7 +29,7 @@ function GeneratorText() {
         <div>
           <button onClick={voice}>Voice</button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
